@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="High-fidelity Relighting Results for 3D Gaussian generated from 4-8 posed sparse images.">
+  <meta name="keywords" content="RelitLRM: Generative Relightable Radiance for Large Reconstruction Models">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RelitLRM: Generative Relightable Radiance for Large Reconstruction Models</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+
+  <script>
+
+    $(function () {
+      var includes = $('[data-include]')
+      $.each(includes, function () {
+        var file = $(this).data('include') + '.html'
+        $(this).load(file)
+        console.log(file);
+      })
+    })
+
+  </script>
+
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
+        "three/controls/OrbitControls": "https://unpkg.com/three@0.156.1/examples/jsm/controls/OrbitControls.js",
+        "three/libs/stats": "https://unpkg.com/three@0.156.1/examples/jsm/libs/stats.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+  <style>
+    model-viewer {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+  </style>
+
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              <span class="dnerf">RelitLRM: Generative Relightable Radiance for Large Reconstruction Models</span>
+            </h1>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <span class="author-block"> <a href="https://tianyuanzhang.com/">Tianyuan Zhang
+                  </a><sup>1</sup>,</span>
+                <span class="author-block"> <a href="https://zhengfeikuang.com/">Zhengfei Kuang</a><sup>2</sup>,</span>
+                <span class="author-block"> <a href="https://haian-jin.github.io/">Haian
+                    Jin</a><sup>3</sup>,</span>
+                <span class="author-block"> <a href="https://zexiangxu.github.io/">Zexiang Xu</a><sup>4</sup>,</span>
+                <span class="author-block"> <a href="https://sai-bi.github.io/">Sai Bi</a><sup>4</sup>,</span>
+                <span class="author-block"> <a href="https://www.cs.unc.edu/~airsplay/">Hao Tan</a><sup>4</sup>,</span>
+                <span class="author-block"> <a href="https://sites.google.com/site/hezhangsprinter">He
+                    Zhang</a><sup>4</sup></span>
+                <span class="author-block"> <a href="https://yiweihu.netlify.app/">Yiwei Hu</a><sup>4</sup></span>
+                <span class="author-block"> <a href="http://www.miloshasan.net/">Milos Hasan</a><sup>4</sup></span>
+                <span class="author-block"> <a href="https://billf.mit.edu/">William T.
+                    Freeman</a><sup>1</sup></span>
+                <span class="author-block"> <a href="https://kai-46.github.io/website/">Kai
+                    Zhang</a><sup>*4</sup></span>
+                <span class="author-block"> <a href="https://luanfujun.com/">Fujun Luan</a><sup>*4</sup></span>
+              </span>
+
+              <span class="author-block">
+                <span class="author-block"><sup>*</sup>(Equal Advising) &nbsp;&nbsp;</span>
+              </span>
+
+              <br>
+              <span class="author-block">
+                <span class="author-block"><sup>1</sup> Massachusetts Institute of Technology &nbsp;&nbsp;</span>
+                <span class="author-block"><sup>2</sup>Stanford University &nbsp;&nbsp;</span>
+                <span class="author-block"><sup>3</sup>Cornell University &nbsp;&nbsp;</span>
+                <span class="author-block"><sup>4</sup>Adobe Research &nbsp;&nbsp;</span>
+              </span>
+
+
+              <br>
+              <br>
+              <span class="author-block">
+                <!-- <a href="https://relit-lrm.github.io/papers/relitlrm_arxiv.pdf"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a> -->
+                <a href="./papers/relitlrm_arxiv.pdf" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+
+              <br>
+              <br>
+              <!-- <span class="author-block">
+                <a href="https://arxiv.org/abs/2404.19702" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+
+
+              <!-- <span class="author-block">
+                    <a href="#BibTeX" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <svg class="svg-inline--fa fa-quote-left fa-w-16 is-dark" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="quote-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 256h-80v-64c0-35.3 28.7-64 64-84h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-84h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path></svg>
+                        <i class="fa fa-quote-left"></i> Font Awesome fontawesome.com 
+                      </span>
+                      <span>Cite</span>
+                    </a>
+                    <br>
+              </span> -->
+
+
+              <p> <br></p>
+              <span class="author-block">
+                <strong>High-fidelity Relighting Results for 3D Gaussian generated from 4-8 posed sparse
+                  images.</strong>
+              </span>
+
+              <p style="font-size: small; margin-top: 10px;">
+                (This webpage contains a lot of videos and interactive viewers. We suggest using Chrome or Edge for the
+                best experience)
+              </p>
+
+
+              <br />
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>Object Relighting Results</center>
+      </h2>
+      <h4 class="subtitle is-4">
+        <center><a href="./page_turntable.html">(Click to see more results)</a></center>
+      </h4>
+      <p style="font-size: small; margin-top: 10px; ">
+        <center>Each object is relit by three different environment maps.</center>
+        <center>Below the videos are: Input views, LDR enviroment map, normalized HDR environment map.</center>
+      </p>
+      <!-- <h4 class="subtitle is-4">
+        <center><a href="./page_gso.html">(Click to see more results)</a></center>
+      </h4> -->
+      <div class="hero-body">
+        <!-- video and viewer for GSO 1, 96, 47 -->
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000117_004turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_4_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000117_004.ply&is_object=true">Open
+                interactive viewer</a>
+            </div>
+          </div>
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000173_0013turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_13_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000173_0013.ply&is_object=true">Open
+                interactive viewer</a>
+            </div>
+          </div>
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000201_008turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_8_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000201_008.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <!-- video and viewer for GSO 1, 96, 47 -->
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000157_0041turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_41_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000157_0041.ply&is_object=true">Open
+                interactive viewer</a>
+            </div>
+          </div>
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000143_0053turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_53_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000143_0053.ply&is_object=true">Open
+                interactive viewer</a>
+            </div>
+          </div>
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000269_0067turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_67_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000269_0067.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <!-- video and viewer for GSO 1, 96, 47 -->
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000237_0046turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_46_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000237_0046.ply&is_object=true">Open
+                interactive viewer</a>
+            </div>
+          </div>
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000293_0038turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_38_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000293_0038.ply&is_object=true">Open
+                interactive viewer</a>
+            </div>
+          </div>
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000321_0032turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_32_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000321_0032.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <!-- video and viewer for GSO 1, 96, 47 -->
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000100_005turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_5_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000100_005.ply&is_object=true">Open
+                interactive viewer</a>
+            </div>
+          </div>
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000240_0018turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_18_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000240_0018.ply&is_object=true">Open
+                interactive viewer</a>
+            </div>
+          </div>
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls height="100%">
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/videos/00000324_000turnable_w_input.mp4"
+                type="video/mp4">
+            </video>
+            <img
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/env_maps/envmap_bs_0_sample_0.png"
+              alt="Cropped Image">
+            <div style="text-align: center;">
+              <a
+                href="viewer/index.html?url=https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/turntable/gaussians/00000324_000.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>Object Relighting with Rotating Lights</center>
+      </h2>
+      <h4 class="subtitle is-4">
+        <center><a href="./page_rotation.html">(Click to see more results)</a></center>
+      </h4>
+      <p style="font-size: small; margin-top: 10px; ">
+        <center>The objects are fixed and captured from multiple static views, while the environment maps are rotating.
+        </center>
+      </p>
+      <p style="font-size: small; margin-top: 10px; ">
+        <center>In each video, from top to bottom: Relit Views, Input Views, Target Environment Map.</center>
+      </p>
+      <!-- <h4 class="subtitle is-4">
+        <center><a href="./page_gso.html">(Click to see more results)</a></center>
+      </h4> -->
+      <div class="hero-body">
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0">
+            <video id="teaser" autoplay muted loop playsinline controls>
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000072envmap_rotate.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0">
+            <video id="teaser" autoplay muted loop playsinline controls>
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000153envmap_rotate.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <!-- video and viewer for GSO 1, 96, 47 -->
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0">
+            <video id="teaser" autoplay muted loop playsinline controls>
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000159envmap_rotate.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0">
+            <video id="teaser" autoplay muted loop playsinline controls>
+              <source
+                src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000140envmap_rotate.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </section>
+
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>Applications: Scene Insertion</center>
+      </h2>
+      <h6 class="subtitle is-6">
+        <center>We insert the relit objects into scenes from the <a href="https://evermotion.org/">Evermotion
+            Archinteriors Volumes</a>.</center>
+      </h6>
+      <div class="hero-body">
+
+        <!-- video and viewer for text-to-3D -->
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0">
+            <img id="scene1"
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/insertion/scene1.png">
+
+            <div style="text-align: center;">
+              Scene 1
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0">
+            <img id="scene2"
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/insertion/scene2.png"
+              width="100%">
+
+            <div style="text-align: center;">
+              Scene 2
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>Applications: Object Gallery </center>
+      </h2>
+      <h6 class="subtitle is-6">
+        <center>Multiple objects rendered in the same scene with different lighting conditions.</center>
+      </h6>
+      <div class="hero-body">
+
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0">
+            <img id="scene2"
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/insertion/composite.png"
+              width="100%">
+
+            <div style="text-align: center;">
+              Object Gallery (Lighting #1)
+            </div>
+          </div>
+        </div>
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0">
+            <img id="scene2"
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/insertion/scene3_lighting2_composite.png"
+              width="100%">
+
+            <div style="text-align: center;">
+              Object Gallery (Lighting #2)
+            </div>
+          </div>
+        </div>
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0">
+            <img id="scene2"
+              src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/insertion/scene3_lighting3_composite.png"
+              width="100%">
+
+            <div style="text-align: center;">
+              Object Gallery (Lighting #3)
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              We borrow the source code of this website from <a
+                href="https://github.com/nerfies/nerfies.github.io">HERE</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

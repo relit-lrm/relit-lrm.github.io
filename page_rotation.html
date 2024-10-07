@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="High-fidelity Relighting Results for 3D Gaussian generated from 4-8 posed sparse images.">
+  <meta name="keywords" content="RelitLRM: Generative Relightable Radiance for Large Reconstruction Models">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RelitLRM: Generative Relightable Radiance for Large Reconstruction Models</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
+        "three/controls/OrbitControls": "https://unpkg.com/three@0.156.1/examples/jsm/controls/OrbitControls.js",
+        "three/libs/stats": "https://unpkg.com/three@0.156.1/examples/jsm/libs/stats.module.js"
+      }
+    }
+        </script>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+  <style>
+    model-viewer {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              <span class="dnerf">RelitLRM: Generative Relightable Radiance for Large Reconstruction Models</span>
+            </h1>
+            <div class="is-size-5 publication-authors">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>Additional Rotating Light Results</center>
+      </h2>
+      <h4 class="subtitle is-4">
+        <center>
+          <a href="./index.html">(Click to return to homepage)</a>
+        </center>
+      </h4>
+
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000017envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000073envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000135envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000037envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000130envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000102envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000054envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000138envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000000envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000224envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000050envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000008envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000049envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="hero-body">
+          <div class="columns is-1 is-multiline is-mobile">
+            <div class="column pb-0 mb-0">
+              <video id="teaser" autoplay muted loop playsinline controls>
+                <source
+                  src="https://huggingface.co/datasets/YunjinZhang/RelitLRM_Web/resolve/main/rotation/00000231envmap_rotate.mp4"
+                  type="video/mp4">
+              </video>
+              <div style="text-align: center;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section class="section" id="BibTeX">
+
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              We borrow the source code of this website from
+              <a href="https://github.com/nerfies/nerfies.github.io">HERE</a>
+              .
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
